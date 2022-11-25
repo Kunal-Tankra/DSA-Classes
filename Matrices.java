@@ -118,24 +118,68 @@ public class Matrices {
     }
 
     // staircase search...
-    public static void staircaseSearch( int matrix[][], int key) {
+    public static void staircaseSearch(int matrix[][], int key) {
         int row = 0;
-        int col = matrix[0].length -1;
+        int col = matrix[0].length - 1;
 
-        while (row <= matrix.length-1 && col >= 0) {
-            if(key == matrix[row][col]){
-                System.out.println("("+row+ ","+col+ ")");
+        while (row <= matrix.length - 1 && col >= 0) {
+            if (key == matrix[row][col]) {
+                System.out.println("(" + row + "," + col + ")");
                 break;
-            }
-            else if(key < matrix[row][col]){
+            } else if (key < matrix[row][col]) {
                 col--;
-            }
-            else{
+            } else {
                 row++;
             }
-            
+
         }
-        System.out.println("The key is not in matrix");
+        System.out.println("The key  is not in matrix");
+    }
+
+    // practice questions...
+    // 1.
+    public static void printNumber_howManyTime(int matrix[][], int key) {
+        int count = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if(key == matrix[i][j]){
+                    count++;
+                }
+            }
+        }
+        System.out.println("count: " + count);
+    }
+
+    // 2.
+    public static void secondRowSum(int matrix[][]) {
+        int sum = 0;
+        for (int i = 0; i < matrix[0].length; i++) {
+            sum += matrix[1][i];
+        }
+
+        System.out.println("second row sum: "+ sum);
+    }
+
+    // 3.
+    public static void printTranspose(int matrix[][]) {
+        int transpose[][] = new int [matrix[0].length][matrix.length];
+        
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                transpose[j][i] = matrix[i][j];
+            }
+        }
+        
+        printArray(transpose);
+    }
+    
+    public static void printArray(int matrix[][]) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + ",");
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
@@ -162,15 +206,18 @@ public class Matrices {
         // smallest(matrix);
         // bigest(matrix);
 
-        int matrix[][] = { { 10, 20, 30, 40 },
-                { 15, 25, 35, 45 },
-                { 27, 29, 37, 48 },
-                { 32, 33, 39, 50 },
-
-        };
+        int matrix[][] = { { 1,2,3},
+                            {4,5,6 },
+                            {7,8,9 },
+                            
+                            };
 
         // printSpiral(matrix);
         // diagonalSum(matrix);
-        staircaseSearch(matrix, 5);
+        // staircaseSearch(matrix, 5);
+
+        // printNumber_howManyTime(matrix, 8);
+        // secondRowSum(matrix);
+        printTranspose(matrix);
     }
 }

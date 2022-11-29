@@ -218,6 +218,8 @@ public class Matrices {
 
         // printNumber_howManyTime(matrix, 8);
         // secondRowSum(matrix);
-        printTranspose(matrix);
+        // printTranspose(matrix);
+
+        
     }
 }

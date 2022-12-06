@@ -1,6 +1,5 @@
-import java.lang.reflect.Method;
+import java.util.*;
 
-import javax.print.attribute.standard.Media;
 
 public class BitManipulation {
     public static void oddOrEven(int n) {
@@ -129,6 +128,7 @@ public class BitManipulation {
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         // oddOrEven(3);
 
         // GetIthBit(10, 3);
@@ -141,7 +141,7 @@ public class BitManipulation {
 
         // clearLastIBits(15, 2);
 
-        clearBitsInRange(12 , 2,5);
+        // clearBitsInRange(12 , 2,5);
 
         // isPowerOfTwo(8);
 
@@ -154,5 +154,7 @@ public class BitManipulation {
         // addOneWithBit(-2);
 
         // upperToLowerCase();
+
+       
     }
 }

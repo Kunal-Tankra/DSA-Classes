@@ -124,10 +124,152 @@ public class DivideNConquer {
         }
     }
 
-    public static void main(String[] args) {
-        int arr[] = { 13,14,15,16,1,2,3,4,5 };
-        System.out.println(search(arr, 0, arr.length - 1, 5));
+    // practice quietions...
+    // 1.. (easy)
+    public static void mergeSortString(String arr[], int si, int ei) {
+        // base
+        if (si >= ei) {
+            return;
+        }
 
+        // work
+        int mid = si + (ei - si) / 2;
+        mergeSortString(arr, si, mid); // left
+        mergeSortString(arr, mid + 1, ei); // right
+
+        mergeStrArr(arr, si, mid, ei);
+
+    }
+
+    public static void mergeStrArr(String arr[], int si, int mid, int ei) {
+        String temp[] = new String[ei - si + 1];
+        // trackers
+        int i = si; // track first arr
+        int j = mid + 1; // track second arr
+        int k = 0; // track temp
+
+        while (i <= mid && j <= ei) {
+            int compare = arr[i].compareTo(arr[j]);
+            if (compare < 0) {
+                temp[k] = arr[i++];
+                // i++;
+
+            } else {
+                temp[k] = arr[j++];
+                // j++;
+            }
+            k++;
+
+        }
+
+        // remaining strings in sorted array 1st
+        while (i <= mid) {
+            temp[k++] = arr[i++];
+        }
+
+        // remaining strings in sorted array 2nd
+        while (j <= ei) {
+            temp[k++] = arr[j++];
+
+        }
+
+        // copying in arr
+        for (int k2 = 0, i2 = si; k2 < temp.length; k2++, i2++) {
+            arr[i2] = temp[k2];
+        }
+
+    }
+
+    // 2.. major element
+    public static int majorElem(int arr[], int si, int ei) {
+        // base
+        if (si == ei) {
+            return arr[si];
+        }
+
+        // kaam
+        int mid = si + (ei - si) / 2;
+        int left = majorElem(arr, si, mid);
+        int right = majorElem(arr, mid + 1, ei);
+
+        if (left == right) {
+            return left;
+        }
+
+        int leftCount = countInRange(arr, left, si, ei);
+        int rightCount = countInRange(arr, right, si, ei);
+
+        return leftCount > rightCount ? left : right;
+    }
+
+    public static int countInRange(int arr[], int val, int si, int ei) {
+        int count = 0;
+        for (int i = si; i <= ei; i++) {
+            if (val == arr[i]) {
+                count++;
+            }
+        }
+        return count;
+
+    }
+
+    // 3.. modified mergesort
+    public static int mergeSortInv(int arr[], int si, int ei) {
+        int invCount = 0;
+        if (si < ei) {
+            int mid = si + (ei - si) / 2;
+            invCount += mergeSortInv(arr, si, mid); // left faith k le aaenge
+            invCount += mergeSortInv(arr, mid + 1, ei); // right
+
+            invCount += mergeInv(arr, si, mid, ei);   //left and right k liye
+        }
+
+        return invCount;
+
+    }
+
+    public static int mergeInv(int arr[], int si, int mid, int ei) {
+        int invCount = 0;
+
+        int temp[] = new int[ei - si + 1];
+        int i = si;
+        int j = mid + 1;
+        int k = 0;
+
+        while (i <= mid && j <= ei) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                invCount += mid + 1 - i;
+                temp[k++] = arr[j++];
+            }
+        }
+
+        while (i <= mid) {
+            temp[k++] = arr[i++];
+
+        }
+
+        while (j <= ei) {
+            temp[k++] = arr[j++];
+
+        }
+
+        // copy to arr
+        for (int k2 = 0, i2= si; k2 < temp.length; k2++, i2++) {
+            arr[i2] = temp[k2];
+        }
+
+        return invCount;
+
+    }
+
+    public static void main(String[] args) {
+        int arr[] = { 2,4,1,3,5};
+        // mergeSortString(arr, 0, arr.length-1);
+        // quickSort(arr, 0, arr.length - 1);
+        System.out.println(mergeSortInv(arr, 0, arr.length-1));
         // printArr(arr);
+
     }
 }

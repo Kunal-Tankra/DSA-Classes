@@ -327,7 +327,7 @@ public class Arrays {
     
     
     // 5.....
-    public List<List<Integer>> tripleSumZero(int num[]) {
+    public static List tripleSumZero(int num[]) {
         List<List<Integer>> result =  new    ArrayList <List<Integer>> ();
             
             for (int i = 0; i < num.length; i++) {
@@ -365,7 +365,8 @@ public class Arrays {
         int nums[] = {0,1,2};
         
         
-        // tripleSumZero(nums);
+//    tripleSumZero(nums);
+
         
     }
 }

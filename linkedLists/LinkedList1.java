@@ -1,7 +1,5 @@
 import java.util.NoSuchElementException;
 
-import javax.print.attribute.standard.PrinterMessageFromOperator;
-
 // ------without Java Collections Framework (Linked List)--------
 
 public class LinkedList1 {
@@ -457,17 +455,24 @@ public class LinkedList1 {
     }
 
     public static void main(String[] args) {
-        LinkedList1 ll = new LinkedList1();
-        ll.addLast(1);
-        ll.addLast(2);
-        ll.addLast(3);
-        ll.addLast(4);
-        ll.addLast(5); 
-        ll.addLast(6); 
-
-        ll.print();
-       ll.zigZag();
-        ll.print();
+        LinkedList1 ll1 = new LinkedList1();
+        head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        
+        Node temp = new Node(6);
+        
+        head.next.next.next = temp;
+        head.next.next.next.next = new Node(7);
+        
+        ll1.print();
+        
+        LinkedList1 ll2 = new LinkedList1();
+        head = new Node(4);
+        head.next = new Node(5);
+        head.next.next = temp;
+        ll2.print();
+    
 
     }
 }

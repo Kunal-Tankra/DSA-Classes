@@ -1,4 +1,7 @@
 import java.util.*;
+
+import javax.print.attribute.IntegerSyntax;
+
 import java.lang.Comparable;
 
 public class QueuePracticeQ {
@@ -45,17 +48,49 @@ public class QueuePracticeQ {
         System.out.println(totalCost);
     }
 
-    // 3... job sequencing ... incomplete
-    static class job {
+    // 3... job sequencing .........smj ni aaya... O(n logn)
+    static class Job {
         char jobId;
         int deadline;
         int profit;
 
-        public job(char jobId, int deadline, int profit) {
+        public Job(char jobId, int deadline, int profit) {
             this.jobId = jobId;
             this.deadline = deadline;
             this.profit = profit;
         }
+    }
+
+    public static void jobSequencing(ArrayList<Job> arr) {
+        int n = arr.size();
+        Collections.sort(arr, (a, b) -> {
+            return a.deadline - b.deadline;
+        });
+        ArrayList<Job> result = new ArrayList<>();
+        PriorityQueue<Job> maxHeap = new PriorityQueue<>((a, b) -> {
+            return b.profit - a.profit;
+        });
+        for (int i = n - 1; i > -1; i--) {
+            int slot_available;
+            if (i == 0) {
+                slot_available = arr.get(i).deadline;
+            } else {
+                slot_available = arr.get(i).deadline - arr.get(i - 1).deadline;
+            }
+            maxHeap.add(arr.get(i));
+            while (slot_available > 0 && maxHeap.size() > 0) {
+                Job job = maxHeap.remove();
+                slot_available--;
+                result.add(job);
+            }
+        }
+        Collections.sort(result, (a, b) -> {
+            return a.deadline - b.deadline;
+        });
+        for (Job job : result) {
+            System.out.print(job.jobId + " ");
+        }
+        System.out.println();
     }
 
     // 4.. reversing the first k elements of a queue...
@@ -92,7 +127,7 @@ public class QueuePracticeQ {
         for (int i = 1; i < k; i++) {
             int curr = arr[i];
 
-            while(!dq.isEmpty() && curr >= arr[dq.getLast()]){
+            while (!dq.isEmpty() && curr >= arr[dq.getLast()]) {
                 dq.removeLast();
             }
 
@@ -106,7 +141,7 @@ public class QueuePracticeQ {
             int curr = arr[i];
 
             // check first elem is comes in window if not then remove it
-            while (!dq.isEmpty() && dq.peek() <= i-k) {
+            while (!dq.isEmpty() && dq.peek() <= i - k) {
                 dq.removeFirst();
             }
 
@@ -122,19 +157,18 @@ public class QueuePracticeQ {
     }
 
     public static void main(String[] args) {
-        ArrayList<job> arr = new ArrayList<>();
+        ArrayList<Job> arr = new ArrayList<>();
 
-        arr.add(new job('a', 4, 20));
-        arr.add(new job('b', 1, 10));
-        arr.add(new job('c', 1, 40));
-        arr.add(new job('d', 1, 30));
+        arr.add(new Job('a', 2, 100));
+        arr.add(new Job('b', 1, 19));
+        arr.add(new Job('c', 2, 27));
+        arr.add(new Job('d', 1, 25));
+        arr.add(new Job('e', 3, 15));
 
-        Collections.sort(arr, (a, b) -> {
-            return b.profit - a.profit;
-        });
+        jobSequencing(arr);
 
-        int arr2[] = { 1, 2, 3, 1, 4, 5, 2, 3, 6 };
-        maxOfAllSubarrs(arr2, 9, 3);
+        // int arr2[] = { 1, 2, 3, 1, 4, 5, 2, 3, 6 };
+        // maxOfAllSubarrs(arr2, 9, 3);
 
     }
 }

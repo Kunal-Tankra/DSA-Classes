@@ -278,7 +278,7 @@ public class Questions {
         
     }
 
-    // 5. merge k sorted Linked List....
+    // 5. merge k sorted Linked List....  O (n *k )
     public static void mergeKSortedLL(LinkedList<Integer> l1,LinkedList<Integer> l2,LinkedList<Integer> l3, int k, int n){
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 

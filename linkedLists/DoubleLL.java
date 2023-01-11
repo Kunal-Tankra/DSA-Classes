@@ -143,9 +143,13 @@ public class DoubleLL {
         dll.addFirst(1);
         dll.addLast(4);
 
+        // dll.print();
+        // dll.reverse();
         dll.print();
-        dll.reverse();
-        dll.print();
+
+       
+
+
        
     }
 }

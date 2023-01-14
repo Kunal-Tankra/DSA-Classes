@@ -1,32 +1,32 @@
 package Tries;
 
 public class PrefixProblem {
-    // prefix problem.....pp..
-    static class NodePP {
-        NodePP children[] = new NodePP[26];
+    // prefix problem.......
+    static class Node {
+        Node children[] = new Node[26];
         boolean eow = false;
         int frq = 1;
 
-        public NodePP() {
+        public Node() {
             for (int i = 0; i < 26; i++) {
                 children[i] = null;
             }
         }
     }
 
-    public static NodePP rootPP = new NodePP();
+    public static Node root = new Node();
 
-    public static void insertPP(String word) {
-        rootPP.frq = -1;
+    public static void insert(String word) {
+        root.frq = -1;
 
-        NodePP curr = rootPP;
+        Node curr = root;
 
         for (int i = 0; i < word.length(); i++) {
 
             int ind = word.charAt(i) - 'a';
 
             if (curr.children[ind] == null) {
-                curr.children[ind] = new NodePP();
+                curr.children[ind] = new Node();
             } else {
                 curr.children[ind].frq++;
             }
@@ -37,21 +37,21 @@ public class PrefixProblem {
         curr.eow = true;
     }
 
-    public static void getPrefix(NodePP rootPP, String ans) {
-        // if (rootPP == null) {
+    public static void getPrefix(Node root, String ans) {
+        // if (root == null) {
         //     return;
         // }
 
-        if (rootPP.frq == 1) {
-            System.out.println(ans);
+        if (root.frq == 1) {
+            System.out.print(ans+ ", ");
             return;
         }
 
-        for (int i = 0; i < rootPP.children.length; i++) {
-            if (rootPP.children[i] != null) {
+        for (int i = 0; i < root.children.length; i++) {
+            if (root.children[i] != null) {
 
                 
-                getPrefix(rootPP.children[i], ans + (char) (i + 'a'));
+                getPrefix(root.children[i], ans + (char) (i + 'a'));
             }
         }
 
@@ -60,8 +60,8 @@ public class PrefixProblem {
     public static void main(String[] args) {
         String arr2[] = { "zebra", "dog", "duck", "dove", "e" };
         for (String string : arr2) {
-            insertPP(string);
+            insert(string);
         }
-        // getPrefix(rootPP, "");
+        getPrefix(root, "");
     }
 }

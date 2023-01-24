@@ -3,7 +3,7 @@ package Graphs.Graphs1;
 import java.util.*;
 
 public class AdjacencyLIstB {
-    static class Edge{
+    public static class Edge{
         int src;  //source
         int dest;  //destination
         int wt;  //weight

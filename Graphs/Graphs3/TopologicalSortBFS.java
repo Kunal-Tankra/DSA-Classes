@@ -2,11 +2,12 @@ package Graphs.Graphs3;
 import java.util.*;
 
 public class TopologicalSortBFS {
-    static class Edge {
+    
+    public static class Edge {
         int src;
         int dest;
 
-        Edge(int s, int d) {
+        public Edge(int s, int d) {
             this.src = s;
             this.dest = d;
         }

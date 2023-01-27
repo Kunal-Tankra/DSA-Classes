@@ -2,9 +2,7 @@ package Graphs.Graphs4;
 
 import java.util.*;
 
-import javax.print.attribute.standard.PrintQuality;
-import javax.swing.text.html.ParagraphView;
-import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
+
 
 public class PrimsAlgo {
     static class Edge {
@@ -79,6 +77,7 @@ public class PrimsAlgo {
             }
         }
 
+        // print
         for (int i = 0; i < MST_Edges.size(); i++) {
             if(i == MST_Edges.size()-1){
 

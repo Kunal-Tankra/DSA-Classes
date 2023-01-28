@@ -129,6 +129,7 @@ public class Arrays {
 
     }
 
+    // kadanes algo.......
     public static void kadanes_subarraySum(int numbers[]) {
         int sum = 0;
         int maxSum = Integer.MIN_VALUE;
@@ -163,7 +164,6 @@ public class Arrays {
     }
 
     // trapped rainwater...
-
     public static void trappedRainwater(int height[]) {
         int n = height.length;
 

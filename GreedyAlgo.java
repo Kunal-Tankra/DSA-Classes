@@ -63,7 +63,7 @@ public class GreedyAlgo {
             ratio[i][1] = val[i] / (double) weight[i];
         }
 
-        // sor - ascending orger
+        // sort - ascending orger
         Arrays.sort(ratio, Comparator.comparingDouble(o -> o[1]));
 
         int capacity = w;

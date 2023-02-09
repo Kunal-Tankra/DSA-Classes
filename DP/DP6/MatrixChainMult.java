@@ -55,7 +55,7 @@ public class MatrixChainMult {
         int ans = Integer.MAX_VALUE;
         for (int k = i; k < j; k++) {
             int cost1 = mcmMemo(arr, i, k, dp);
-            int cost2 = mcmMemo(arr, k+1, j, dp);
+            int cost2 = mcmMemo(arr,  k+1, j, dp);
             int cost3 = arr[i-1] * arr[k] * arr[j];
 
             ans = Math.min(ans, cost1 + cost2 + cost3);
@@ -64,18 +64,68 @@ public class MatrixChainMult {
         return dp[i][j] = ans;
     }
 
+    
+    // 3. tabulation...
+    public static int mcmTabu(int arr[]){
+        int n = arr.length;
+        int dp[][] = new int[n][n];
+
+        // initialize
+        for (int k = 0; k < dp.length; k++) {
+            dp[k][k] = 0;
+        }
+
+        for (int len = 2; len < n; len++) {
+            for (int row = 1; row <= n-len; row++) {
+                int col = row+len-1;
+
+                dp[row][col] = Integer.MAX_VALUE; 
+                // cuts
+                for (int k = row; k < col; k++) {
+                    int cost1 = dp[row][k];
+                    int cost2 = dp[k+1][col];
+
+                    int cost3 = arr[row-1] * arr[k] * arr[col];
+
+                    dp[row][col] = Math.min(dp[row][col], cost1 + cost2+ cost3);
+                }
+            }
+            
+        }
+
+        for (int k = 0; k < dp.length; k++) {
+            for (int k2 = 0; k2 < dp[0].length; k2++) {
+                System.out.print(dp[k][k2] + " ");
+            }
+            System.out.println();
+        }
+        
+        return dp[1][n-1];
+    }
+
     public static void main(String[] args) {
         int arr[] = {1,2,3,4,3};
         int n = arr.length;
-
+        
         // i = 1; because i is starting cut
         // System.out.println(mcm(arr, 1, n-1));
-
+        
         // 2. memo
         int dp[][] = new int[n][n];
         for (int i = 0; i < dp.length; i++) {
             Arrays.fill(dp[i], -1);
         }
-        System.out.println(mcmMemo(arr, 1, n-1, dp));
+
+        // System.out.println(mcmMemo(arr, 1, n-1, dp));
+
+        // for (int k = 0; k < dp.length; k++) {
+        //     for (int k2 = 0; k2 < dp[0].length; k2++) {
+        //         System.out.print(dp[k][k2] + " ");
+        //     }
+        //     System.out.println();
+        // }
+
+        // 3. tabu
+        System.out.println(mcmTabu(arr));
     }
 }

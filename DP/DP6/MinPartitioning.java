@@ -1,38 +1,83 @@
 package DP.DP6;
 
 public class MinPartitioning {
-    // minimum partitioning...
-    public static int minPartitioning(int num[], int i, int j){
-        if(num.length == 2){
-            return Math.abs(num[1] - num[0]);
+    // minimum partitioning...   variation of 0-1 knapsack
+
+    // O(n*W)
+    public static int minPartitioning(int num[]){
+        int n = num.length;
+        int sum = 0;
+        for (int elem : num) {
+            sum += elem;
         }
-        if(i == j){
-            return num[i];
-        }
 
-        int ans = Integer.MAX_VALUE;
-        for (int k = i; k < j; k++) {
-            int min1 = minPartitioning(num, i, k);
-            int min2 = minPartitioning(num, k+1, j);
+        int W = sum/2;
 
-            int min3;
-            if(i == j-1){
+        int dp[][] = new int[n+1][W+1];
 
-              return  min3 = Math.abs(min2+min1);
+        // bottom up
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 1; j < dp[0].length; j++) {
+                int v = num[i-1];
+
+                if(v <= j){  //include
+                    int include = v + dp[i-1][j - v];
+                    int exclude = dp[i-1][j];
+                    
+                    dp[i][j] = Math.max(include, exclude);
+                }
+                else{  //exlcude
+                    int exclude = dp[i-1][j];
+                    dp[i][j] = exclude;
+
+                }
             }
-            else{
-                
-                min3 = Math.abs(min2-min1);
-            }
-            ans = Math.min(ans, min3);
         }
 
-        return ans;
+        int sum1 = dp[n][W];
+        int sum2 = sum - sum1;
+
+
+        return Math.abs(sum2-sum1);
+
+    }
+
+    // variation of question
+    // if sum1 -sum 2 ==0 -> return true;
+    public static boolean isZero(int num[]){
+        int n = num.length;
+        int sum = 0;
+        for (int elem : num) {
+            sum+= elem;
+        }
+
+        int w = sum/2;
+        int dp[][] = new int[n+1][w+1];
+
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 1; j < dp[0].length; j++) {
+                int v = num[i-1];
+                if(v <=j){
+                    dp[i][j] = Math.max(v + dp[i-1][j-v], dp[i-1][j]);
+                }
+                else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+            
+        }
+
+        int sum1 = dp[n][w];
+        int sum2 = sum- sum1;
+       
+        return sum1 == sum2;
     }
     public static void main(String[] args) {
-        int num[] = {1,36};
+        int num[] = {1,1,1};
 
-        System.out.println(minPartitioning(num, 0, num.length-1));
+        // System.out.println(minPartitioning(num));
+
+        System.out.println(isZero(num));
 
     }
 }

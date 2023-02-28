@@ -115,7 +115,7 @@ public class Arrays {
 
                 currSum = start == 0 ? prefix[end] : prefix[end] - prefix[start - 1];
 
-                System.out.println(currSum); // sum of subarrays
+                System.out.print(currSum + " "); // sum of subarrays
 
                 // for max and min subarrays sum
                 if (currSum > maxSum) {
@@ -123,6 +123,7 @@ public class Arrays {
                 }
 
             }
+            System.out.println();
         }
 
         System.out.println("Max Sum of subarrays: " + maxSum);
@@ -362,10 +363,10 @@ public class Arrays {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        int nums[] = {0,1,2};
+        int nums[] = {1,-2,6,-1,3};
         
         
-//    tripleSumZero(nums);
+   subarraysSum(nums);
 
         
     }

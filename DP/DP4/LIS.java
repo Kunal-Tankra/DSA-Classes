@@ -2,6 +2,7 @@ package DP.DP4;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.*;
 
 public class LIS {
     // longest increasing subsequence..
@@ -48,8 +49,37 @@ public class LIS {
         return dp[n][m];
     }
 
+    // 2nd method
+    public static int lis2(int arr[]){
+        int n = arr.length;
+
+        int dp[] = new int[n];
+        dp[0] = 1;  //initialy first elems lis = 1
+
+        int ans = 0;
+        for (int i = 1; i < arr.length; i++) {
+            int curr = arr[i];
+            int count = 0;
+
+            for (int j = 0; j < i; j++) {  //starting to ith
+                if(arr[j] < curr){
+                    count = Math.max(count, dp[j]);  
+                }
+            }
+
+            dp[i] = count +1;
+            ans = Math.max(ans, dp[i]);
+            
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
         int arr[] = {50,3,10,7,40,80};
         System.out.println(lis(arr));
+        System.out.println("lis2: "+ lis2(arr));
+
+        
     }
 }
